@@ -10,47 +10,94 @@ package uk.co.zutty.ld28 {
         [Embed(source="/dialogue_wheel.png")]
         private static const DIALOGUE_WHEEL_IMAGE:Class;
 
-        private var _npcLine:Text;
-        private var _playerLine:Text;
+        private static const TIMEOUT:uint = 100;
+
+        private var _promptText:Text;
+        private var _dialogueWheel:Image;
+        private var _responseText:Text;
+
+        private var _timer:uint;
+        private var _tree:DialogueTree;
 
         public function Dialogue() {
-            var dialogueWheel:Image = new Image(DIALOGUE_WHEEL_IMAGE);
-            dialogueWheel.scrollX = 0;
-            dialogueWheel.x = 10;
-            dialogueWheel.y = 56;
-            addGraphic(dialogueWheel);
+            _promptText = new Text("");
+            _promptText.scrollX = 0;
+            _promptText.size = 8;
+            _promptText.x = 118;
+            _promptText.y = 2;
+            _promptText.visible = false;
+            addGraphic(_promptText);
 
-            _npcLine = new Text("");
-            _npcLine.scrollX = 0;
-            _npcLine.size = 8;
-            _npcLine.x = 118;
-            _npcLine.y = 2;
-            addGraphic(_npcLine);
+            _dialogueWheel = new Image(DIALOGUE_WHEEL_IMAGE);
+            _dialogueWheel.scrollX = 0;
+            _dialogueWheel.x = 10;
+            _dialogueWheel.y = 56;
+            _dialogueWheel.visible = false;
+            addGraphic(_dialogueWheel);
 
-            _playerLine = new Text("");
-            _playerLine.scrollX = 0;
-            _playerLine.size = 8;
-            _playerLine.x = 27;
-            _playerLine.y = 58;
-            _playerLine.color = 0xE0DB4C;
-            addGraphic(_playerLine);
+            _responseText = new Text("");
+            _responseText.scrollX = 0;
+            _responseText.size = 8;
+            _responseText.x = 27;
+            _responseText.y = 58;
+            _responseText.color = 0xE0DB4C;
+            _responseText.visible = false;
+            addGraphic(_responseText);
 
             Input.define("action", Key.SPACE, Key.ENTER);
         }
 
-        public function show(prompt:String, response:String):void {
-            _npcLine.text = prompt;
-            _npcLine.x = 118 - _npcLine.textWidth;
-            _playerLine.text = response;
+        public function show(tree:DialogueTree):void {
+            _tree = tree;
+            advance();
             visible = true;
         }
 
+        public function set prompt(value:String):void {
+            if(value == null) {
+                _promptText.visible = false;
+            } else {
+                _promptText.text = value;
+                _promptText.x = 118 - _promptText.textWidth;
+                _promptText.visible = true;
+            }
+        }
+
+        public function set response(value:String):void {
+            if(value == null) {
+                _responseText.visible = false;
+                _dialogueWheel.visible = false;
+            } else {
+                _responseText.text = value;
+                _responseText.visible = true;
+                _dialogueWheel.visible = true;
+            }
+        }
+
         public function advance():void {
-            visible = false;
+            if(_tree == null) {
+                return;
+            }
+
+            if(_tree.awaitingResponse) {
+                if(!_responseText.visible) {
+                    response = _tree.response;
+                } else {
+                    response = null;
+                    prompt = null;
+                    _tree = _tree.next;
+                    advance();
+                }
+            } else {
+                prompt = _tree.nextPrompt;
+            }
         }
 
         override public function update():void {
-            if(Input.pressed("action")) {
+            ++_timer;
+
+            if(_tree != null && (!_responseText.visible && _timer > TIMEOUT || Input.pressed("action"))) {
+                _timer = 0;
                 advance();
             }
         }
