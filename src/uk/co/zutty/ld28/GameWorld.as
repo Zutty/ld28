@@ -1,9 +1,7 @@
 package uk.co.zutty.ld28 {
     import net.flashpunk.FP;
     import net.flashpunk.World;
-    import net.flashpunk.graphics.Graphiclist;
     import net.flashpunk.graphics.Image;
-    import net.flashpunk.graphics.Text;
 
     public class GameWorld extends World {
 
@@ -16,8 +14,6 @@ package uk.co.zutty.ld28 {
         private var _dialogue:Dialogue;
 
         public function GameWorld() {
-            super();
-
             var starfield:Image = new Image(STARFIELD_IMAGE);
             starfield.scrollX = (300 - FP.screen.width) / (1600 - FP.screen.width);
             addGraphic(starfield);
@@ -28,7 +24,7 @@ package uk.co.zutty.ld28 {
             _player.x = 64;
             add(_player);
 
-            var npc = new NPC();
+            var npc:NPC = new NPC();
             npc.x = 200;
             add(npc);
 

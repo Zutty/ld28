@@ -1,10 +1,3 @@
-/**
- * Created with IntelliJ IDEA.
- * User: Zutty
- * Date: 14/12/2013
- * Time: 16:17
- * To change this template use File | Settings | File Templates.
- */
 package uk.co.zutty.ld28 {
     import net.flashpunk.Entity;
     import net.flashpunk.graphics.Image;

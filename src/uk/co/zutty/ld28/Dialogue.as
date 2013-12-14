@@ -1,13 +1,5 @@
-/**
- * Created with IntelliJ IDEA.
- * User: Zutty
- * Date: 14/12/2013
- * Time: 15:58
- * To change this template use File | Settings | File Templates.
- */
 package uk.co.zutty.ld28 {
     import net.flashpunk.Entity;
-    import net.flashpunk.graphics.Graphiclist;
     import net.flashpunk.graphics.Image;
     import net.flashpunk.graphics.Text;
     import net.flashpunk.utils.Input;
