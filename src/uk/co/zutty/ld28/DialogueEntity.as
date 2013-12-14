@@ -5,7 +5,7 @@ package uk.co.zutty.ld28 {
     import net.flashpunk.utils.Input;
     import net.flashpunk.utils.Key;
 
-    public class Dialogue extends Entity {
+    public class DialogueEntity extends Entity {
 
         [Embed(source="/dialogue_wheel.png")]
         private static const DIALOGUE_WHEEL_IMAGE:Class;
@@ -20,7 +20,7 @@ package uk.co.zutty.ld28 {
         private var _tree:DialogueTree;
         private var _callback:Function;
 
-        public function Dialogue() {
+        public function DialogueEntity() {
             _promptText = new Text("");
             _promptText.scrollX = 0;
             _promptText.size = 8;
