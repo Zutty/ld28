@@ -18,6 +18,7 @@ package uk.co.zutty.ld28 {
 
         private var _timer:uint;
         private var _tree:DialogueTree;
+        private var _callback:Function;
 
         public function Dialogue() {
             _promptText = new Text("");
@@ -47,8 +48,10 @@ package uk.co.zutty.ld28 {
             Input.define("action", Key.SPACE, Key.ENTER);
         }
 
-        public function show(tree:DialogueTree):void {
+        public function show(tree:DialogueTree, callback:Function):void {
             _tree = tree;
+            _callback = callback;
+            _timer = 0;
             advance();
             visible = true;
         }
@@ -86,6 +89,9 @@ package uk.co.zutty.ld28 {
                     response = null;
                     prompt = null;
                     _tree = _tree.next;
+                    if(_tree == null) {
+                        _callback();
+                    }
                     advance();
                 }
             } else {
