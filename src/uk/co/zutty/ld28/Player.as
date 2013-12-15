@@ -1,5 +1,7 @@
 package uk.co.zutty.ld28 {
     import net.flashpunk.Entity;
+    import net.flashpunk.Entity;
+    import net.flashpunk.FP;
     import net.flashpunk.graphics.Spritemap;
     import net.flashpunk.utils.Input;
     import net.flashpunk.utils.Key;
@@ -71,6 +73,10 @@ package uk.co.zutty.ld28 {
             _spritemap.callback = resetAnim;
             _spritemap.play("shoot");
             --_ammo;
+
+            var bullet:Entity = FP.world.create(PlayerBullet);
+            bullet.x = x + 6;
+            bullet.y = y - 22;
         }
 
         public function resetAnim():void {

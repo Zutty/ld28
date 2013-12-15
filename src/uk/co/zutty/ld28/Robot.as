@@ -2,7 +2,7 @@ package uk.co.zutty.ld28 {
     import net.flashpunk.Entity;
     import net.flashpunk.graphics.Spritemap;
 
-    public class Robot extends Entity {
+    public class Robot extends Enemy {
 
         [Embed(source="/robot.png")]
         private static const ROBOT_IMAGE:Class;
@@ -14,6 +14,8 @@ package uk.co.zutty.ld28 {
         private var _timer:uint = 0;
 
         public function Robot() {
+            super(2);
+
             _spritemap = new Spritemap(ROBOT_IMAGE, 16, 32);
             _spritemap.add("stand", [0]);
             _spritemap.add("walk", [1,2,3,4], 0.1, true);
@@ -27,12 +29,15 @@ package uk.co.zutty.ld28 {
 
             y = 66;
             setHitbox(7, 28, 2, 28);
-            type = "enemy";
         }
 
         public function activate():void {
             _activated = true;
             _spritemap.play("walk");
+        }
+
+        override public function onHit():void {
+            _spritemap.play("hit");
         }
 
         override public function update():void {
