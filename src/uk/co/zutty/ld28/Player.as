@@ -14,6 +14,7 @@ package uk.co.zutty.ld28 {
         private var _spritemap:Spritemap;
         private var _canMove:Boolean = true;
         private var _canShoot:Boolean = true;
+        private var _moving:Boolean = false;
 
         public function Player() {
             _spritemap = new Spritemap(PLAYER_IMAGE, 16, 32);
@@ -34,25 +35,32 @@ package uk.co.zutty.ld28 {
 
         public function set canMove(value:Boolean):void {
             _canMove = value;
+            _moving = false;
+            resetAnim();
         }
 
         public function set canShoot(value:Boolean):void {
             _canShoot = value;
+            resetAnim();
+        }
+
+        public function resetAnim():void {
+            _spritemap.play(_canShoot ? (_moving ? "walk_gun" : "stand_gun") : (_moving ? "walk" : "stand"));
         }
 
         override public function update():void {
             if(_canMove && Input.check("move")) {
                 x += SPEED;
-                _spritemap.play("walk_gun");
+                _moving = true;
+                _spritemap.play(_canShoot ? "walk_gun" : "walk");
             }
             if(_canMove && Input.released("move")) {
-                _spritemap.play("stand_gun");
+                _moving = false;
+                _spritemap.play(_canShoot ? "stand_gun" : "stand");
             }
 
             if(_canShoot && Input.check("action")) {
-                _spritemap.callback = function ():void {
-                    _spritemap.play("stand_gun");
-                };
+                _spritemap.callback = resetAnim;
                 _spritemap.play("shoot");
             }
         }
