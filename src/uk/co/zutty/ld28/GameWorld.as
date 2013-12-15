@@ -25,6 +25,7 @@ package uk.co.zutty.ld28 {
         private var _player:Player;
         private var _dialogue:DialogueEntity;
         private var _combatHud:CombatHud;
+        private var _deathHud:DeathHud;
 
         private var _state:uint = STATE_WANDER;
 
@@ -57,6 +58,9 @@ package uk.co.zutty.ld28 {
             _dialogue = new DialogueEntity();
             add(_dialogue);
 
+            _deathHud = new DeathHud();
+            add(_deathHud);
+
             _nextEvent = new DialogueEvent(180, new DialogueTree(["You killed my brother!", "I challenge you to a", "duel across time & space"], "Ok fine", new DialogueTree(["Oh, seriously?"], "Are you scared?", null)),
                 new CombatEvent(220,
                 new ActivateEvent(360, robot,
@@ -81,6 +85,10 @@ package uk.co.zutty.ld28 {
             if(_combatHud.visible) {
                 _combatHud.ammo = _player.ammo;
                 _combatHud.health = _player.health;
+            }
+
+            if(_player.health <= 0) {
+                _deathHud.show();
             }
 
             if(_state == STATE_WANDER) {
