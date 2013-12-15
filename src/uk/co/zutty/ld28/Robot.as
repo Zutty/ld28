@@ -1,5 +1,4 @@
 package uk.co.zutty.ld28 {
-    import net.flashpunk.Entity;
     import net.flashpunk.graphics.Spritemap;
 
     public class Robot extends Enemy {

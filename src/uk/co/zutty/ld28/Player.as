@@ -1,6 +1,5 @@
 package uk.co.zutty.ld28 {
     import net.flashpunk.Entity;
-    import net.flashpunk.Entity;
     import net.flashpunk.FP;
     import net.flashpunk.graphics.Spritemap;
     import net.flashpunk.utils.Input;
