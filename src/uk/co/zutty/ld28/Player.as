@@ -7,7 +7,6 @@ package uk.co.zutty.ld28 {
     public class Player extends Entity {
 
         private static const SPEED:Number = 1.5;
-        private static const SHOOT_COOLDOWN:uint = 30;
 
         [Embed(source="/char.png")]
         private static const PLAYER_IMAGE:Class;
@@ -17,7 +16,6 @@ package uk.co.zutty.ld28 {
         private var _canShoot:Boolean = true;
         private var _moving:Boolean = false;
         private var _ammo:int = 0;
-        private var _timer:uint = 0;
 
         public function Player() {
             _spritemap = new Spritemap(PLAYER_IMAGE, 16, 32);
@@ -56,11 +54,10 @@ package uk.co.zutty.ld28 {
         }
 
         public function shoot():void {
-            if(_ammo <= 0 || _timer < SHOOT_COOLDOWN) {
+            if(_ammo <= 0) {
                 return;
             }
 
-            _timer = 0;
             _spritemap.callback = resetAnim;
             _spritemap.play("shoot");
             --_ammo;
@@ -71,8 +68,6 @@ package uk.co.zutty.ld28 {
         }
 
         override public function update():void {
-            ++_timer;
-
             if(_canMove && Input.check("move")) {
                 x += SPEED;
                 _moving = true;
@@ -83,7 +78,7 @@ package uk.co.zutty.ld28 {
                 _spritemap.play(_canShoot ? "stand_gun" : "stand");
             }
 
-            if(_canShoot && Input.check("action")) {
+            if(_canShoot && Input.pressed("action")) {
                 shoot();
             }
         }
