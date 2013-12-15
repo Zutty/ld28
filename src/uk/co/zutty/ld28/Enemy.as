@@ -18,7 +18,9 @@ package uk.co.zutty.ld28 {
 
         public function hit():void {
             --_health;
-            onHit();
+            if(_health >= 0) {
+                onHit();
+            }
         }
 
         public function checkDead():void {
