@@ -1,14 +1,19 @@
 package uk.co.zutty.ld28 {
     import net.flashpunk.Entity;
-    import net.flashpunk.FP;
 
     public class Enemy extends Entity {
 
+        private var _activated:Boolean = false;
         private var _health:int = 0;
 
         public function Enemy(maxHealth:int) {
             _health = maxHealth;
             type = "enemy";
+        }
+
+        public function activate():void {
+            _activated = true;
+            onActivated();
         }
 
         public function hit():void {
@@ -29,6 +34,7 @@ package uk.co.zutty.ld28 {
             collidable = false;
         }
 
+        public function onActivated():void {}
         public function onHit():void {}
         public function onDie():void {}
         public function onStillAlive():void {}

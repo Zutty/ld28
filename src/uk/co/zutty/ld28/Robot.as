@@ -32,8 +32,7 @@ package uk.co.zutty.ld28 {
             setHitbox(7, 28, 2, 28);
         }
 
-        public function activate():void {
-            _activated = true;
+        override public function onActivated():void {
             _spritemap.play("walk");
         }
 
