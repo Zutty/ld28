@@ -15,6 +15,7 @@ package uk.co.zutty.ld28 {
 
         private var _player:Player;
         private var _dialogue:DialogueEntity;
+        private var _gunHud:GunHud;
 
         private var _state:uint = STATE_WANDER;
 
@@ -29,11 +30,15 @@ package uk.co.zutty.ld28 {
 
             _player = new Player()
             _player.x = 64;
+            _player.ammo = 9;
             add(_player);
 
             var npc:NPC = new NPC();
             npc.x = 200;
             add(npc);
+
+            _gunHud = new GunHud();
+            add(_gunHud);
 
             _dialogue = new DialogueEntity();
             add(_dialogue);
@@ -43,6 +48,8 @@ package uk.co.zutty.ld28 {
 
         override public function update():void {
             super.update();
+
+            _gunHud.ammo = _player.ammo;
 
             if(_state == STATE_WANDER) {
                 FP.camera.x = FP.clamp(_player.x - (FP.screen.width / 2), 0, 1600 - FP.screen.width);
