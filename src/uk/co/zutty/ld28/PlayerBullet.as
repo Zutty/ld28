@@ -13,7 +13,7 @@ package uk.co.zutty.ld28 {
         private var _removeNextUpdate:Boolean = false;
 
         public function PlayerBullet() {
-            var img = new Image(RICOCHET_IMAGE);
+            var img:Image = new Image(RICOCHET_IMAGE);
             img.centerOrigin();
             graphic = img;
         }
