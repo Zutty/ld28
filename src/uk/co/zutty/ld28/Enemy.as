@@ -5,6 +5,7 @@ package uk.co.zutty.ld28 {
 
         private var _activated:Boolean = false;
         private var _health:int = 0;
+        private var _stunned:Boolean = false;
 
         public function Enemy(maxHealth:int) {
             _health = maxHealth;
@@ -16,8 +17,17 @@ package uk.co.zutty.ld28 {
             onActivated();
         }
 
+        public function get activated():Boolean {
+            return _activated;
+        }
+
+        public function get stunned():Boolean {
+            return _stunned;
+        }
+
         public function hit():void {
             --_health;
+            _stunned = true;
             if(_health >= 0) {
                 onHit();
             }
@@ -27,6 +37,7 @@ package uk.co.zutty.ld28 {
             if(_health <= 0) {
                 onDie();
             } else {
+                _stunned = false;
                 onStillAlive();
             }
         }

@@ -10,7 +10,6 @@ package uk.co.zutty.ld28 {
         private static const ATTACK_TIME:uint = 20;
 
         private var _spritemap:Spritemap;
-        private var _activated:Boolean = false;
         private var _timer:uint = 0;
 
         public function Robot() {
@@ -33,6 +32,7 @@ package uk.co.zutty.ld28 {
         }
 
         override public function onActivated():void {
+            _spritemap.callback = null;
             _spritemap.play("walk");
         }
 
@@ -47,13 +47,13 @@ package uk.co.zutty.ld28 {
         }
 
         override public function onStillAlive():void {
-            _spritemap.play(_activated ? "walk" : "stand");
+            _spritemap.play(activated ? "walk" : "stand");
         }
 
         override public function update():void {
             _timer++;
 
-            if(_activated) {
+            if(activated) {
                 moveBy(-0.2, 0, "player");
             } else if(Math.random() < 0.005) {
                 _spritemap.callback = function ():void {
@@ -62,12 +62,14 @@ package uk.co.zutty.ld28 {
                 _spritemap.play("idle");
             }
 
-            var player:Player = collide("player", x - 1,  y) as Player;
-            if(player) {
-                _spritemap.play("attack");
-                if(_timer >= ATTACK_TIME) {
-                    _timer = 0;
-                    player.hit();
+            if(!stunned) {
+                var player:Player = collide("player", x - 1,  y) as Player;
+                if(player) {
+                    _spritemap.play("attack");
+                    if(_timer >= ATTACK_TIME) {
+                        _timer = 0;
+                        player.hit();
+                    }
                 }
             }
         }

@@ -75,7 +75,7 @@ package uk.co.zutty.ld28 {
             --_ammo;
 
             var bullet:Entity = FP.world.create(PlayerBullet);
-            bullet.x = x + 6;
+            bullet.x = x;
             bullet.y = y - 22;
         }
 

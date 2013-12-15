@@ -3,6 +3,8 @@ package uk.co.zutty.ld28 {
     import net.flashpunk.World;
     import net.flashpunk.graphics.Image;
 
+    import uk.co.zutty.ld28.event.ActivateEvent;
+
     import uk.co.zutty.ld28.event.CombatEvent;
 
     import uk.co.zutty.ld28.event.DialogueEvent;
@@ -57,7 +59,8 @@ package uk.co.zutty.ld28 {
 
             _nextEvent = new DialogueEvent(180, new DialogueTree(["You killed my brother!", "I challenge you to a", "duel across time & space"], "Ok fine", new DialogueTree(["Oh, seriously?"], "Are you scared?", null)),
                 new CombatEvent(220,
-                new EndCombatEvent(900, null)));
+                new ActivateEvent(360, robot,
+                new EndCombatEvent(900, null))));
         }
 
         public function get player():Player {
