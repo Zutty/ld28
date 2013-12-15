@@ -37,9 +37,6 @@ package uk.co.zutty.ld28 {
             y = 66;
             setHitbox(9, 32, 6, 32);
             type = "player";
-
-            Input.define("move", Key.D, Key.RIGHT);
-            Input.define("action", Key.ENTER, Key.SPACE);
         }
 
         public function get ammo():int {

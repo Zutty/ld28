@@ -6,6 +6,7 @@ package uk.co.zutty.ld28 {
     import net.flashpunk.graphics.Spritemap;
     import net.flashpunk.graphics.Text;
     import net.flashpunk.tweens.misc.VarTween;
+    import net.flashpunk.utils.Input;
 
     public class DeathHud extends Entity {
 
@@ -61,6 +62,13 @@ package uk.co.zutty.ld28 {
             _youSuck.visible = true;
             _pressAction.visible = true;
             _playAgain.visible = true;
+        }
+
+
+        override public function update():void {
+            if(_playAgain.visible && Input.pressed("action")) {
+                FP.world = new GameWorld();
+            }
         }
     }
 }
