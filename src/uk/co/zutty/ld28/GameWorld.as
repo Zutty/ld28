@@ -45,7 +45,7 @@ package uk.co.zutty.ld28 {
             add(npc);
 
             var robot:Robot = new Robot();
-            robot.x = 100;
+            robot.x = 400;
             robot.activate();
             add(robot);
 
@@ -76,7 +76,10 @@ package uk.co.zutty.ld28 {
         override public function update():void {
             super.update();
 
-            _combatHud.ammo = _player.ammo;
+            if(_combatHud.visible) {
+                _combatHud.ammo = _player.ammo;
+                _combatHud.health = _player.health;
+            }
 
             if(_state == STATE_WANDER) {
                 FP.camera.x = FP.clamp(_player.x - (FP.screen.width / 2), 0, 1600 - FP.screen.width);

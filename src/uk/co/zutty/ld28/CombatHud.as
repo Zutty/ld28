@@ -16,8 +16,11 @@ package uk.co.zutty.ld28 {
         private static const GUN_ICON_IMAGE:Class;
         [Embed(source="/numbers.png")]
         private static const NUMBERS_IMAGE:Class;
+        [Embed(source="/health_icon.png")]
+        private static const HEALTH_ICON_IMAGE:Class;
 
         private var _ammoSpritemap:Spritemap;
+        private var _healthSpritemap:Vector.<Spritemap>;
 
         public function CombatHud() {
             var gunIcon:Image = new Image(GUN_ICON_IMAGE);
@@ -40,12 +43,29 @@ package uk.co.zutty.ld28 {
             _ammoSpritemap.scrollX = 0;
             _ammoSpritemap.x = 12;
             _ammoSpritemap.y = 11;
-            addGraphic(_ammoSpritemap)
+            addGraphic(_ammoSpritemap);
+
+            _healthSpritemap = new Vector.<Spritemap>(Player.MAX_HEALTH);
+            for(var i:int = 0; i < Player.MAX_HEALTH; i++) {
+                _healthSpritemap[i] = new Spritemap(HEALTH_ICON_IMAGE, 12, 7);
+                _healthSpritemap[i].add("on", [0]);
+                _healthSpritemap[i].add("off", [1]);
+                _healthSpritemap[i].scrollX = 0;
+                _healthSpritemap[i].x = 19 + i * 12;
+                _healthSpritemap[i].y = 3;
+                addGraphic(_healthSpritemap[i]);
+            }
         }
 
         public function set ammo(value:int):void {
             if(value >= 0 && value <= 9) {
                 _ammoSpritemap.play(value.toString());
+            }
+        }
+
+        public function set health(value:int):void {
+            for(var i:int = 0; i < Player.MAX_HEALTH; i++) {
+                _healthSpritemap[i].play(i < value ? "on" : "off");
             }
         }
     }

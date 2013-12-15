@@ -7,8 +7,11 @@ package uk.co.zutty.ld28 {
         [Embed(source="/robot.png")]
         private static const ROBOT_IMAGE:Class;
 
+        private static const ATTACK_TIME:uint = 20;
+
         private var _spritemap:Spritemap;
         private var _activated:Boolean = false;
+        private var _timer:uint = 0;
 
         public function Robot() {
             _spritemap = new Spritemap(ROBOT_IMAGE, 16, 32);
@@ -33,6 +36,8 @@ package uk.co.zutty.ld28 {
         }
 
         override public function update():void {
+            _timer++;
+
             if(_activated) {
                 moveBy(-0.2, 0, "player");
             } else if(Math.random() < 0.005) {
@@ -42,8 +47,13 @@ package uk.co.zutty.ld28 {
                 _spritemap.play("idle");
             }
 
-            if(collide("player", x - 1,  y)) {
+            var player:Player = collide("player", x - 1,  y) as Player;
+            if(player) {
                 _spritemap.play("attack");
+                if(_timer >= ATTACK_TIME) {
+                    _timer = 0;
+                    player.hit();
+                }
             }
         }
     }
