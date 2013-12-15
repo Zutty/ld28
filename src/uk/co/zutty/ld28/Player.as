@@ -13,7 +13,7 @@ package uk.co.zutty.ld28 {
 
         private var _spritemap:Spritemap;
         private var _canMove:Boolean = true;
-        private var _canShoot:Boolean = true;
+        private var _canShoot:Boolean = false;
         private var _moving:Boolean = false;
         private var _ammo:int = 0;
 
@@ -25,7 +25,7 @@ package uk.co.zutty.ld28 {
             _spritemap.add("walk_gun", [2,3], 0.1);
             _spritemap.add("shoot", [4], 0.1, false);
             _spritemap.centerOrigin();
-            _spritemap.play("stand_gun");
+            _spritemap.play("stand");
             graphic = _spritemap;
 
             y = 50;

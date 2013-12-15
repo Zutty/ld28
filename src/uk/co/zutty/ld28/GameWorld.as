@@ -3,6 +3,8 @@ package uk.co.zutty.ld28 {
     import net.flashpunk.World;
     import net.flashpunk.graphics.Image;
 
+    import uk.co.zutty.ld28.event.CombatEvent;
+
     import uk.co.zutty.ld28.event.DialogueEvent;
 
     import uk.co.zutty.ld28.event.Event;
@@ -19,7 +21,7 @@ package uk.co.zutty.ld28 {
 
         private var _player:Player;
         private var _dialogue:DialogueEntity;
-        private var _gunHud:GunHud;
+        private var _combatHud:CombatHud;
 
         private var _state:uint = STATE_WANDER;
 
@@ -45,19 +47,33 @@ package uk.co.zutty.ld28 {
             robot.x = 400;
             add(robot);
 
-            _gunHud = new GunHud();
-            add(_gunHud);
+            _combatHud = new CombatHud();
+            _combatHud.visible = false;
+            add(_combatHud);
 
             _dialogue = new DialogueEntity();
             add(_dialogue);
 
-            _nextEvent = new DialogueEvent(180, new DialogueTree(["You killed my brother!", "I challenge you to a", "duel across time & space"], "Ok fine", new DialogueTree(["Oh, seriously?"], "Are you scared?", null)), null);
+            _nextEvent = new DialogueEvent(180, new DialogueTree(["You killed my brother!", "I challenge you to a", "duel across time & space"], "Ok fine", new DialogueTree(["Oh, seriously?"], "Are you scared?", null)),
+                new CombatEvent(220, null));
+        }
+
+        public function get player():Player {
+            return _player;
+        }
+
+        public function get combatHud():CombatHud {
+            return _combatHud;
+        }
+
+        public function set state(value:uint):void {
+            _state = value;
         }
 
         override public function update():void {
             super.update();
 
-            _gunHud.ammo = _player.ammo;
+            _combatHud.ammo = _player.ammo;
 
             if(_state == STATE_WANDER) {
                 FP.camera.x = FP.clamp(_player.x - (FP.screen.width / 2), 0, 1600 - FP.screen.width);

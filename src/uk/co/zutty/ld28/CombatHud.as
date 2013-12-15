@@ -10,7 +10,7 @@ package uk.co.zutty.ld28 {
     import net.flashpunk.graphics.Image;
     import net.flashpunk.graphics.Spritemap;
 
-    public class GunHud extends Entity {
+    public class CombatHud extends Entity {
 
         [Embed(source="/gun_icon.png")]
         private static const GUN_ICON_IMAGE:Class;
@@ -19,7 +19,7 @@ package uk.co.zutty.ld28 {
 
         private var _ammoSpritemap:Spritemap;
 
-        public function GunHud() {
+        public function CombatHud() {
             var gunIcon:Image = new Image(GUN_ICON_IMAGE);
             gunIcon.scrollX = 0;
             gunIcon.x = 2;
