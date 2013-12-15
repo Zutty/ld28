@@ -1,4 +1,5 @@
-package uk.co.zutty.ld28 {
+package uk.co.zutty.ld28.event {
+    import uk.co.zutty.ld28.*;
     public class Event {
 
         private var _position:int;

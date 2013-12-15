@@ -1,5 +1,8 @@
-package uk.co.zutty.ld28 {
+package uk.co.zutty.ld28.event {
+    import uk.co.zutty.ld28.*;
     import net.flashpunk.FP;
+
+    import uk.co.zutty.ld28.event.Event;
 
     public class DialogueEvent extends Event {
 

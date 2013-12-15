@@ -3,6 +3,10 @@ package uk.co.zutty.ld28 {
     import net.flashpunk.World;
     import net.flashpunk.graphics.Image;
 
+    import uk.co.zutty.ld28.event.DialogueEvent;
+
+    import uk.co.zutty.ld28.event.Event;
+
     public class GameWorld extends World {
 
         [Embed(source="/starfield.png")]

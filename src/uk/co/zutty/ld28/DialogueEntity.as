@@ -1,4 +1,5 @@
 package uk.co.zutty.ld28 {
+    import uk.co.zutty.ld28.*;
     import net.flashpunk.Entity;
     import net.flashpunk.graphics.Image;
     import net.flashpunk.graphics.Text;
