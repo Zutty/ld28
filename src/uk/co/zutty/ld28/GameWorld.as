@@ -45,7 +45,7 @@ package uk.co.zutty.ld28 {
             add(npc);
 
             var robot:Robot = new Robot();
-            robot.x = 400;
+            robot.x = 100;
             add(robot);
 
             _combatHud = new CombatHud();

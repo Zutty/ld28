@@ -16,10 +16,14 @@ package uk.co.zutty.ld28 {
             _spritemap.add("walk", [1,2,3,4], 0.1, true);
             _spritemap.add("hit", [5]);
             _spritemap.add("idle", [0,6,7,6,0], 0.1, false);
-            _spritemap.centerOrigin();
-            graphic = _spritemap;
             _spritemap.play("stand");
-            y = 50;
+            _spritemap.originX = 8;
+            _spritemap.originY = 32;
+            graphic = _spritemap;
+
+            y = 66;
+            setHitbox(7, 28, 2, 28);
+            type = "enemy";
         }
 
         public function activate():void {

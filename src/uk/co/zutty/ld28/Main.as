@@ -7,6 +7,9 @@ package uk.co.zutty.ld28 {
         public function Main() {
             super(128, 72, 60, true);
 
+            FP.console.enable();
+            FP.console.debug = true;
+
             FP.screen.scale = 5;
             FP.screen.color = 0x6699E6;
 

@@ -24,11 +24,14 @@ package uk.co.zutty.ld28 {
             _spritemap.add("stand_gun", [2]);
             _spritemap.add("walk_gun", [2,3], 0.1);
             _spritemap.add("shoot", [4], 0.1, false);
-            _spritemap.centerOrigin();
+            _spritemap.originX = 8;
+            _spritemap.originY = 32;
             _spritemap.play("stand");
             graphic = _spritemap;
 
-            y = 50;
+            y = 66;
+            setHitbox(9, 32, 6, 32);
+            type = "player";
 
             Input.define("move", Key.D, Key.RIGHT);
             Input.define("action", Key.ENTER, Key.SPACE);
