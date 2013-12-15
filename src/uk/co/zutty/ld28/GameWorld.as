@@ -87,7 +87,7 @@ package uk.co.zutty.ld28 {
                 _combatHud.health = _player.health;
             }
 
-            if(_player.health <= 0) {
+            if(_player.dead) {
                 _deathHud.show();
             }
 

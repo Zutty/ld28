@@ -61,14 +61,16 @@ package uk.co.zutty.ld28 {
                 _spritemap.play("idle");
             }
 
-            if(!stunned) {
+            if(!stunned && activated) {
                 var player:Player = collide("player", x - 1,  y) as Player;
-                if(player) {
+                if(player && !player.dead) {
                     _spritemap.play("attack");
                     if(_timer >= ATTACK_TIME) {
                         _timer = 0;
                         player.hit();
                     }
+                } else {
+                    _spritemap.play("walk");
                 }
             }
         }

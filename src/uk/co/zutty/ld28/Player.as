@@ -28,6 +28,7 @@ package uk.co.zutty.ld28 {
             _spritemap.add("walk_gun", [2,3], 0.1);
             _spritemap.add("shoot", [4], 0.1, false);
             _spritemap.add("hit_gun", [5], 0.1, false);
+            _spritemap.add("die", [0,6,7,8], 0.1, false);
             _spritemap.originX = 8;
             _spritemap.originY = 32;
             _spritemap.play("stand");
@@ -51,6 +52,10 @@ package uk.co.zutty.ld28 {
 
         public function get health():int {
             return _health;
+        }
+
+        public function get dead():Boolean {
+            return _health <= 0;
         }
 
         public function set canMove(value:Boolean):void {
@@ -79,28 +84,44 @@ package uk.co.zutty.ld28 {
         }
 
         public function resetAnim():void {
-            _spritemap.play(_canShoot ? (_moving ? "walk_gun" : "stand_gun") : (_moving ? "walk" : "stand"));
+            if(dead) {
+                _spritemap.callback = function ():void {
+                    active = false;
+                    collidable = false;
+                }
+                _spritemap.play("die");
+            } else {
+                _spritemap.callback = null;
+                _spritemap.play(_canShoot ? (_moving ? "walk_gun" : "stand_gun") : (_moving ? "walk" : "stand"));
+            }
         }
 
         public function hit():void {
             --_health;
+            if(dead) {
+                _canMove = false;
+                _canShoot = false;
+            }
+
             _spritemap.callback = resetAnim;
             _spritemap.play("hit_gun", true);
         }
 
         override public function update():void {
-            if(_canMove && Input.check("move")) {
-                moveBy(SPEED, 0, "enemy");
-                _moving = true;
-                _spritemap.play(_canShoot ? "walk_gun" : "walk");
-            }
-            if(_canMove && Input.released("move")) {
-                _moving = false;
-                _spritemap.play(_canShoot ? "stand_gun" : "stand");
-            }
+            if(!dead) {
+                if(_canMove && Input.check("move")) {
+                    moveBy(SPEED, 0, "enemy");
+                    _moving = true;
+                    _spritemap.play(_canShoot ? "walk_gun" : "walk");
+                }
+                if(_canMove && Input.released("move")) {
+                    _moving = false;
+                    _spritemap.play(_canShoot ? "stand_gun" : "stand");
+                }
 
-            if(_canShoot && Input.pressed("action")) {
-                shoot();
+                if(_canShoot && Input.pressed("action")) {
+                    shoot();
+                }
             }
         }
     }
