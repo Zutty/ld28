@@ -37,6 +37,10 @@ package uk.co.zutty.ld28 {
             npc.x = 200;
             add(npc);
 
+            var robot:Robot = new Robot();
+            robot.x = 400;
+            add(robot);
+
             _gunHud = new GunHud();
             add(_gunHud);
 
@@ -64,6 +68,7 @@ package uk.co.zutty.ld28 {
         public function dialogue(dialogueTree:DialogueTree):void {
             _state = STATE_DIALOGUE;
             _player.canMove = false;
+            _player.canShoot = false;
             _dialogue.show(dialogueTree, wander);
         }
 
