@@ -6,6 +6,7 @@ package uk.co.zutty.ld28 {
     import uk.co.zutty.ld28.event.CombatEvent;
 
     import uk.co.zutty.ld28.event.DialogueEvent;
+    import uk.co.zutty.ld28.event.EndCombatEvent;
 
     import uk.co.zutty.ld28.event.Event;
 
@@ -55,7 +56,8 @@ package uk.co.zutty.ld28 {
             add(_dialogue);
 
             _nextEvent = new DialogueEvent(180, new DialogueTree(["You killed my brother!", "I challenge you to a", "duel across time & space"], "Ok fine", new DialogueTree(["Oh, seriously?"], "Are you scared?", null)),
-                new CombatEvent(220, null));
+                new CombatEvent(220,
+                new EndCombatEvent(900, null)));
         }
 
         public function get player():Player {
