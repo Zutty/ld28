@@ -16,6 +16,7 @@ package uk.co.zutty.ld28 {
             _spritemap.add("walk", [1,2,3,4], 0.1, true);
             _spritemap.add("hit", [5]);
             _spritemap.add("idle", [0,6,7,6,0], 0.1, false);
+            _spritemap.add("attack", [8,9], 0.1, true);
             _spritemap.play("stand");
             _spritemap.originX = 8;
             _spritemap.originY = 32;
@@ -33,12 +34,16 @@ package uk.co.zutty.ld28 {
 
         override public function update():void {
             if(_activated) {
-                x -= 0.2;
+                moveBy(-0.2, 0, "player");
             } else if(Math.random() < 0.005) {
                 _spritemap.callback = function ():void {
                     _spritemap.play("stand");
                 }
                 _spritemap.play("idle");
+            }
+
+            if(collide("player", x - 1,  y)) {
+                _spritemap.play("attack");
             }
         }
     }

@@ -46,6 +46,7 @@ package uk.co.zutty.ld28 {
 
             var robot:Robot = new Robot();
             robot.x = 100;
+            robot.activate();
             add(robot);
 
             _combatHud = new CombatHud();

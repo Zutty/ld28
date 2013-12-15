@@ -72,7 +72,7 @@ package uk.co.zutty.ld28 {
 
         override public function update():void {
             if(_canMove && Input.check("move")) {
-                x += SPEED;
+                moveBy(SPEED, 0, "enemy");
                 _moving = true;
                 _spritemap.play(_canShoot ? "walk_gun" : "walk");
             }
