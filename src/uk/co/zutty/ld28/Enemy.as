@@ -14,11 +14,23 @@ package uk.co.zutty.ld28 {
         public function hit():void {
             --_health;
             onHit();
+        }
+
+        public function checkDead():void {
             if(_health <= 0) {
-                FP.world.recycle(this);
+                onDie();
+            } else {
+                onStillAlive();
             }
         }
 
+        public function die():void {
+            active = false;
+            collidable = false;
+        }
+
         public function onHit():void {}
+        public function onDie():void {}
+        public function onStillAlive():void {}
     }
 }

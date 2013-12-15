@@ -19,9 +19,10 @@ package uk.co.zutty.ld28 {
             _spritemap = new Spritemap(ROBOT_IMAGE, 16, 32);
             _spritemap.add("stand", [0]);
             _spritemap.add("walk", [1,2,3,4], 0.1, true);
-            _spritemap.add("hit", [5]);
+            _spritemap.add("hit", [5], 0.2, false);
             _spritemap.add("idle", [0,6,7,6,0], 0.1, false);
             _spritemap.add("attack", [8,9], 0.1, true);
+            _spritemap.add("die", [10,11,12,13], 0.2, false);
             _spritemap.play("stand");
             _spritemap.originX = 8;
             _spritemap.originY = 32;
@@ -37,7 +38,17 @@ package uk.co.zutty.ld28 {
         }
 
         override public function onHit():void {
+            _spritemap.callback = checkDead;
             _spritemap.play("hit");
+        }
+
+        override public function onDie():void {
+            _spritemap.callback = die;
+            _spritemap.play("die");
+        }
+
+        override public function onStillAlive():void {
+            _spritemap.play(_activated ? "walk" : "stand");
         }
 
         override public function update():void {
