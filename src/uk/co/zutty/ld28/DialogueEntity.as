@@ -45,8 +45,6 @@ package uk.co.zutty.ld28 {
             _responseText.color = 0xE0DB4C;
             _responseText.visible = false;
             addGraphic(_responseText);
-
-            Input.define("action", Key.SPACE, Key.ENTER);
         }
 
         public function show(tree:DialogueTree, callback:Function):void {
