@@ -64,7 +64,6 @@ package uk.co.zutty.ld28 {
             _playAgain.visible = true;
         }
 
-
         override public function update():void {
             if(_playAgain.visible && Input.pressed("action")) {
                 FP.world = new GameWorld();

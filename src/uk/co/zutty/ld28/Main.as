@@ -13,9 +13,9 @@ package uk.co.zutty.ld28 {
             FP.screen.color = 0x6699E6;
 
             Input.define("move", Key.D, Key.RIGHT);
-            Input.define("action", Key.ENTER, Key.SPACE);
+            Input.define("action", Key.ENTER, Key.SPACE, Key.A);
 
-            FP.world = new GameWorld();
+            FP.world = new TitleWorld();
         }
     }
 }
